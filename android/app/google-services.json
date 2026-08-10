@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "890301151813",
+    "project_id": "push-notif-8b4b3",
+    "storage_bucket": "push-notif-8b4b3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890301151813:android:b012541973c60a1376412c",
+        "android_client_info": {
+          "package_name": "com.example.hairguide_barberpedia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1p3glFlg-xjnqFGS7MNl78m14KZoJh_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

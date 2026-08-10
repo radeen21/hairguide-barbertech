@@ -1,0 +1,205 @@
+import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import 'package:hairguide_barberpedia/core/di/service_locator.dart';
+import 'package:hairguide_barberpedia/features/capsters/starService/presentation/start_service_controller.dart';
+import 'package:hairguide_barberpedia/features/capsters/takePicture/hairGuideDetail/addon/add_on_page.dart';
+import 'package:hairguide_barberpedia/features/user/homepage/gromming_service/dialog/start_service_dialog.dart';
+import 'package:hairguide_barberpedia/features/capsters/takePicture/domain/photo_repository.dart';
+
+class HairResultPreviewPage extends StatefulWidget {
+  final Uint8List imageBytes;
+  final String generatedPhotoId;
+  final bool hasAddons;
+  final String serviceId;
+  final String haircutName;
+  final PhotoRepository photoRepository;
+
+  const HairResultPreviewPage({
+    super.key,
+    required this.imageBytes,
+    required this.generatedPhotoId,
+    required this.hasAddons,
+    required this.serviceId,
+    required this.haircutName,
+    required this.photoRepository,
+  });
+
+  @override
+  State<HairResultPreviewPage> createState() => _HairResultPreviewPageState();
+}
+
+class _HairResultPreviewPageState extends State<HairResultPreviewPage> {
+  List<Map<String, dynamic>> _selectedAddOns = [];
+  bool _isStartingService = false; // 🔥 loading flag
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text(
+          "Preview Hasil",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      body: Stack(
+        children: [
+          // =====================
+          // MAIN CONTENT
+          // =====================
+          Column(
+            children: [
+              // IMAGE
+              Expanded(
+                child: Center(
+                  child: InteractiveViewer(
+                    minScale: 0.8,
+                    maxScale: 4,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.memory(
+                        widget.imageBytes,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              // BUTTON AREA
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+                child: Column(
+                  children: [
+                    // ADD ON
+                    if (widget.hasAddons)
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey[800],
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          onPressed: () async {
+                            if (_isStartingService) return;
+
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => AddOnPage(
+                                  photoRepository: widget.photoRepository,
+                                  photoId: widget.generatedPhotoId,
+                                  serviceId: widget.serviceId,
+                                  baseImage: widget.imageBytes,
+                                ),
+                              ),
+                            );
+
+                            if (result != null && mounted) {
+                              setState(() {
+                                _selectedAddOns = result["addons"];
+                              });
+                            }
+                          },
+                          child: const Text("Add On"),
+                        ),
+                      ),
+
+                    const SizedBox(height: 10),
+
+                    // MULAI CUKUR
+                    SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFF6AD03),
+                          foregroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: () {
+                          if (_isStartingService) return;
+
+                          final controller =
+                              locator<StartServiceController>();
+
+                          StartServiceDialog.show(
+                            context,
+                            onSubmit: (phone) async {
+                              setState(() => _isStartingService = true);
+
+                              final success =
+                                  await controller.startService(
+                                phoneNumber: phone,
+                                serviceId: widget.serviceId,
+                                haircutName: widget.haircutName,
+                                addOns: _selectedAddOns,
+                              );
+
+                              if (!mounted) return;
+
+                              setState(() => _isStartingService = false);
+
+                              if (success) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content:
+                                        Text("Service berhasil dimulai"),
+                                  ),
+                                );
+                                // Navigator.of(context).popUntil((route) => route.isFirst);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      controller.error ??
+                                          "Terjadi kesalahan",
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                          );
+                        },
+                        child: const Text(
+                          "Mulai Cukur",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          // =====================
+          // LOADING OVERLAY
+          // =====================
+          if (_isStartingService)
+            Positioned.fill(
+              child: AbsorbPointer(
+                absorbing: true, // 🔒 block semua klik
+                child: Container(
+                  color: Colors.black.withOpacity(0.45),
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: Color(0xFFF6AD03),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
