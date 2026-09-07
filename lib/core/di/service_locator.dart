@@ -77,16 +77,11 @@ import 'package:hairguide_barberpedia/features/user/scanbarcode/presentation/sca
 final locator = GetIt.instance;
 
 void setupLocator() {
-  // =====================
-  // CORE
-  // =====================
+
   if (!locator.isRegistered<Dio>()) {
     locator.registerLazySingleton<Dio>(() => DioClient.create());
   }
 
-  // =====================
-  // AUTH SESSION (🔥 FIXED)
-  // =====================
   if (!locator.isRegistered<AuthSessionRepositoryImpl>()) {
     locator.registerLazySingleton<AuthSessionRepositoryImpl>(
       () => AuthSessionRepositoryImpl(),
@@ -99,9 +94,6 @@ void setupLocator() {
     );
   }
 
-  // =====================
-  // AUTH DATA
-  // =====================
   if (!locator.isRegistered<AuthRemoteDataSource>()) {
     locator.registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(locator()),
@@ -123,9 +115,6 @@ void setupLocator() {
     );
   }
 
-  // =====================
-  // AUTH USECASES
-  // =====================
   if (!locator.isRegistered<LoginUseCase>()) {
     locator.registerLazySingleton<LoginUseCase>(
       () => LoginUseCase(
@@ -149,9 +138,6 @@ void setupLocator() {
     () => LogoutController(locator<LogoutUseCase>()),
   );
 
-  // =====================
-  // PHOTO FEATURE
-  // =====================
   if (!locator.isRegistered<PhotoRemoteDataSource>()) {
     locator.registerLazySingleton<PhotoRemoteDataSource>(
       () => PhotoRemoteDataSource(locator()),
@@ -174,9 +160,6 @@ void setupLocator() {
     () => TakePhotoController(useCase: locator(), sessionRepository: locator()),
   );
 
-  // =====================
-  // REGISTER FEATURE
-  // =====================
   if (!locator.isRegistered<RegisterRemoteDataSource>()) {
     locator.registerLazySingleton<RegisterRemoteDataSource>(
       () => RegisterRemoteDataSource(),
@@ -199,9 +182,6 @@ void setupLocator() {
     () => RegisterController(registerUseCase: locator()),
   );
 
-  // =====================
-  // POINTS FEATURE
-  // =====================
   if (!locator.isRegistered<PointsRemoteDataSource>()) {
     locator.registerLazySingleton<PointsRemoteDataSource>(
       () => PointsRemoteDataSource(locator()),
@@ -221,10 +201,6 @@ void setupLocator() {
   }
 
   locator.registerFactory<PointsController>(() => PointsController(locator()));
-
-  // =====================
-  // CAPSTER FEATURE ✅ FINAL
-  // =====================
 
   locator.registerLazySingleton<CapsterRemoteDataSource>(
     () => CapsterRemoteDataSource(locator()),
@@ -252,10 +228,6 @@ void setupLocator() {
 
   locator.registerLazySingleton(() => AddOnPhotoApi(locator<Dio>()));
 
-  // =====================
-  // HISTORY FEATURE 🕘
-  // =====================
-
   if (!locator.isRegistered<HistoryRemoteDataSource>()) {
     locator.registerLazySingleton<HistoryRemoteDataSource>(
       () => HistoryRemoteDataSource(locator<Dio>()),
@@ -278,9 +250,6 @@ void setupLocator() {
     () => HistoryController(locator<GetHistoriesUseCase>()),
   );
 
-  // =====================
-  // CAPSTER HISTORY
-  // =====================
   locator.registerLazySingleton(
     () => CapsterHistoryRemoteDataSource(locator()),
   );
@@ -293,7 +262,6 @@ void setupLocator() {
 
   locator.registerFactory(() => CapsterHistoryController(locator()));
 
-  // Start Service
   locator.registerLazySingleton(
     () => StartServiceRemoteDataSourceImpl(locator<Dio>()),
   );
@@ -346,10 +314,6 @@ void setupLocator() {
 
   locator.registerFactory(() => ReviewController(locator()));
 
-  // =====================
-// FINISH SERVICE FEATURE ✅
-// =====================
-
 // remote
 locator.registerLazySingleton<FinishServiceRemoteDataSource>(
   () => FinishServiceRemoteDataSource(locator<Dio>()),
@@ -369,16 +333,12 @@ locator.registerLazySingleton<FinishServiceUseCase>(
   ),
 );
 
-// controller (⚠️ factory, bukan singleton)
 locator.registerFactory<FinishServiceController>(
   () => FinishServiceController(
     locator<FinishServiceUseCase>(),
   ),
 );
 
-// =====================
-// UPLOAD PHOTO USECASE (REUSED)
-// =====================
 locator.registerLazySingleton<UploadPhotoUseCase>(
   () => UploadPhotoUseCase(
     locator<PhotoRepository>(),

@@ -8,7 +8,7 @@ class CapsterHistoryModel {
   final int totalVisits;
   final DateTime? lastServedDate;
   final int transactionAmount;
-  final String status; // 🔥 PROCESSING / DONE
+  final String status;
 
   CapsterHistoryModel({
     required this.id,
@@ -33,7 +33,6 @@ class CapsterHistoryModel {
           : null,
       transactionAmount: json["transaction_amount"] ?? 0,
 
-      // 🔥 INI YANG PENTING
       status: json["status"] ?? "UNKNOWN",
     );
   }

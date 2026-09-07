@@ -30,7 +30,7 @@ class HairResultPreviewPage extends StatefulWidget {
 
 class _HairResultPreviewPageState extends State<HairResultPreviewPage> {
   List<Map<String, dynamic>> _selectedAddOns = [];
-  bool _isStartingService = false; // 🔥 loading flag
+  bool _isStartingService = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +46,7 @@ class _HairResultPreviewPageState extends State<HairResultPreviewPage> {
       ),
       body: Stack(
         children: [
-          // =====================
-          // MAIN CONTENT
-          // =====================
+
           Column(
             children: [
               // IMAGE
@@ -181,13 +179,10 @@ class _HairResultPreviewPageState extends State<HairResultPreviewPage> {
             ],
           ),
 
-          // =====================
-          // LOADING OVERLAY
-          // =====================
           if (_isStartingService)
             Positioned.fill(
               child: AbsorbPointer(
-                absorbing: true, // 🔒 block semua klik
+                absorbing: true, 
                 child: Container(
                   color: Colors.black.withOpacity(0.45),
                   child: const Center(

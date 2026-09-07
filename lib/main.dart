@@ -62,7 +62,7 @@ Future<void> main() async {
     // ENV
     // =====================
     AppEnv.current = AppEnvironment.prod;
-    debugPrint('✅ Environment berhasil diatur ke PROD');
+    debugPrint('Environment berhasil diatur ke PROD');
 
     // =====================
     // INIT FIREBASE
@@ -71,14 +71,14 @@ Future<void> main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    debugPrint('✅ Firebase berhasil diinisialisasi');
+    debugPrint('Firebase berhasil diinisialisasi');
 
     // =====================
     // INIT GETIT
     // =====================
     setupLocator();
 
-    debugPrint('✅ Service locator berhasil diinisialisasi');
+    debugPrint('Service locator berhasil diinisialisasi');
 
     // =====================
     // LOAD SESSION
@@ -92,7 +92,7 @@ Future<void> main() async {
     final sessionToken = sessionRepo.getSessionToken();
 
     debugPrint(
-      '🔐 HAS SESSION TOKEN = ${sessionToken?.isNotEmpty == true}',
+      'HAS SESSION TOKEN = ${sessionToken?.isNotEmpty == true}',
     );
 
     // =====================
@@ -105,17 +105,17 @@ Future<void> main() async {
       final fcmService = FcmService();
 
       await fcmService.requestPermission();
-      debugPrint('✅ Permission notifikasi berhasil diproses');
+      debugPrint('Permission notifikasi berhasil diproses');
 
       await fcmService.getToken();
-      debugPrint('✅ Proses pengambilan FCM token selesai');
+      debugPrint('Proses pengambilan FCM token selesai');
 
       fcmService.listenForegroundMessages();
       fcmService.listenTokenRefresh();
 
-      debugPrint('✅ Listener FCM berhasil dijalankan');
+      debugPrint('Listener FCM berhasil dijalankan');
     } catch (error, stackTrace) {
-      debugPrint('⚠️ FCM gagal diinisialisasi');
+      debugPrint('FCM gagal diinisialisasi');
       debugPrint(error.toString());
       debugPrintStack(stackTrace: stackTrace);
     }
@@ -127,7 +127,7 @@ Future<void> main() async {
       DeviceOrientation.portraitUp,
     ]);
 
-    debugPrint('✅ Orientasi layar berhasil diatur');
+    debugPrint('Orientasi layar berhasil diatur');
 
     // =====================
     // RUN APP

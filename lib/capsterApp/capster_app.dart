@@ -15,7 +15,6 @@ class _CapsterAppState extends State<CapsterApp> {
   void initState() {
     super.initState();
 
-    /// 🔥 LOCK LANDSCAPE KHUSUS CAPSTER
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
     ]);
@@ -27,7 +26,6 @@ class _CapsterAppState extends State<CapsterApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
 
-      /// ✅ LOGIN DULU
       // home: const CapsterLoginPage(loginUseCase: null,, logoutUseCase: null,, takeAndAnalyzePhotoUseCase: null,, pointsController: null,, historyController: null,, voucherController: null,, scanController: null,),
     );
   }

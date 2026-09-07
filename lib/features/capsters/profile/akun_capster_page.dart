@@ -50,9 +50,6 @@ class _AkunCapsterPageState extends State<AkunCapsterPage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        /// =====================
-        /// MAIN UI (TIDAK DIUBAH)
-        /// =====================
         Scaffold(
           backgroundColor: Colors.black,
           body: SafeArea(
@@ -63,7 +60,6 @@ class _AkunCapsterPageState extends State<AkunCapsterPage> {
                 children: [
                   const SizedBox(height: 12),
 
-                  /// 🏷 TITLE
                   const Text(
                     "AKUN",
                     style: TextStyle(
@@ -76,7 +72,6 @@ class _AkunCapsterPageState extends State<AkunCapsterPage> {
 
                   const SizedBox(height: 24),
 
-                  /// 👤 PROFILE HEADER
                   Row(
                     children: [
                       /// AVATAR
@@ -112,7 +107,6 @@ class _AkunCapsterPageState extends State<AkunCapsterPage> {
 
                   const SizedBox(height: 28),
 
-                  /// 📦 MENU CONTAINER
                   Container(
                     decoration: BoxDecoration(
                       color: const Color(0xFF141414),
@@ -157,7 +151,6 @@ class _AkunCapsterPageState extends State<AkunCapsterPage> {
 
                   const Spacer(),
 
-                  /// 🚪 LOGOUT
                   Center(
                     child: GestureDetector(
                       onTap: _isLoggingOut ? null : _handleLogout,
@@ -179,9 +172,6 @@ class _AkunCapsterPageState extends State<AkunCapsterPage> {
           ),
         ),
 
-        /// =====================
-        /// 🔥 LOADING OVERLAY
-        /// =====================
         if (_isLoggingOut)
           AbsorbPointer(
             absorbing: true,
@@ -199,9 +189,6 @@ class _AkunCapsterPageState extends State<AkunCapsterPage> {
     );
   }
 
-  // ======================
-  // MENU ITEM
-  // ======================
   Widget _menuItem({
     required IconData icon,
     required String title,

@@ -129,7 +129,7 @@ class _ReviewCapsterCardState extends State<ReviewCapsterCard> {
                         await widget.onSubmit(
                           capsterId: widget.capsterId,
                           rating: _rating,
-                          comment: "Excellent service!", // ✅ FIX (NON-NULL)
+                          comment: "Excellent service!",
                         );
 
                         if (!mounted) return;
@@ -140,7 +140,7 @@ class _ReviewCapsterCardState extends State<ReviewCapsterCard> {
                           ),
                         );
                       } catch (e) {
-                        debugPrint("❌ SUBMIT REVIEW ERROR: $e");
+                        debugPrint("SUBMIT REVIEW ERROR: $e");
                         if (!mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

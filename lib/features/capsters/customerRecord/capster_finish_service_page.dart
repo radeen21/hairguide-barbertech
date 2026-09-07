@@ -89,23 +89,18 @@ class _CapsterFinishServicePageState extends State<CapsterFinishServicePage> {
     }
   }
 
-  // =====================
-  // ☁️ SUBMIT FINISH SERVICE
-  // =====================
   Future<void> _submit() async {
     if (_capturedPhoto == null) return;
 
     setState(() => isUploading = true);
 
     try {
-      // 1️⃣ upload foto
       final uploadUseCase = locator<UploadPhotoUseCase>();
 
       final photoUrl = await uploadUseCase.execute(_capturedPhoto!);
 
-      debugPrint("📸 uploaded photo url = $photoUrl");
+      debugPrint("uploaded photo url = $photoUrl");
 
-      // 2️⃣ finish service
       await _finishController.finish(
         historyId: widget.historyId,
         photoUrl: photoUrl,
@@ -113,10 +108,8 @@ class _CapsterFinishServicePageState extends State<CapsterFinishServicePage> {
 
       if (!mounted) return;
 
-      // 3️⃣ balik ke home capster
-      // Navigator.of(context).popUntil((route) => route.isFirst);
     } catch (e, s) {
-      debugPrint("❌ Finish service error: $e");
+      debugPrint("Finish service error: $e");
       debugPrintStack(stackTrace: s);
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -165,7 +158,6 @@ class _CapsterFinishServicePageState extends State<CapsterFinishServicePage> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          /// 📷 CAMERA FRAME
                           Container(
                             width: 353,
                             height: 353,
@@ -237,10 +229,6 @@ class _CapsterFinishServicePageState extends State<CapsterFinishServicePage> {
     );
   }
 
-  // =====================
-  // UI HELPERS
-  // =====================
-
   Widget _loadingOverlay(String text) {
     return Container(
       color: Colors.black.withOpacity(0.6),
@@ -254,7 +242,7 @@ class _CapsterFinishServicePageState extends State<CapsterFinishServicePage> {
               text,
               style: const TextStyle(
                 color: Colors.white70,
-                fontSize: 14, // 🔥 atur di sini
+                fontSize: 14,
               ),
             ),
           ],

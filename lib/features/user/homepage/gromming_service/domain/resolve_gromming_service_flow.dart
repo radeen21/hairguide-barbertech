@@ -2,7 +2,6 @@ import 'package:hairguide_barberpedia/features/user/homepage/gromming_service/do
 import 'package:hairguide_barberpedia/features/user/homepage/gromming_service/domain/gromming_service_flow.dart';
 
 
-/// ⭐ NEW USECASE
 class ResolveServiceFlowUseCase {
   ServiceFlow call(GrommingServiceEntity service) {
     if (!service.isAllowPhoto) {

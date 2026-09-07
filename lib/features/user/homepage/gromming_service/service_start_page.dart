@@ -73,7 +73,7 @@ class ServiceStartPage extends StatelessWidget {
                         phoneNumber: phone,
                         serviceId: service.id,
                         haircutName: service.name,
-                        addOns: const [], // isi dari selection kalau ada
+                        addOns: const [],
                       );
 
                       if (success) {
@@ -120,7 +120,7 @@ class ServiceStartPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// LABEL (TOP)
+
           Text(
             label,
             style: const TextStyle(color: Colors.white54, fontSize: 16),
@@ -128,7 +128,6 @@ class ServiceStartPage extends StatelessWidget {
 
           const SizedBox(height: 6),
 
-          /// VALUE (BOTTOM)
           Text(
             value,
             style: const TextStyle(

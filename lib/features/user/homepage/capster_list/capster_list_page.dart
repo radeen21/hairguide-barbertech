@@ -25,10 +25,8 @@ class _CapsterListPageState extends State<CapsterListPage> {
   void initState() {
     super.initState();
 
-    // 🔥 FIRST LOAD
     widget.controller.fetchCapsters();
 
-    // 🔥 PAGINATION LISTENER
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent - 200) {
@@ -44,14 +42,14 @@ class _CapsterListPageState extends State<CapsterListPage> {
   }
 
   Future<Uint8List> _loadImageWithAuth(String url) async {
-    // ✅ Return cache jika sudah ada
+  
     if (_imageCache.containsKey(url)) {
       return _imageCache[url]!;
     }
 
     final dio = DioClient.create();
 
-    debugPrint("🖼️ LOAD IMAGE = $url");
+    debugPrint("LOAD IMAGE = $url");
 
     final res = await dio.get(
       url,
@@ -60,7 +58,6 @@ class _CapsterListPageState extends State<CapsterListPage> {
 
     final bytes = Uint8List.fromList(res.data);
 
-    // ✅ Simpan ke cache
     _imageCache[url] = bytes;
 
     return bytes;
@@ -81,9 +78,7 @@ class _CapsterListPageState extends State<CapsterListPage> {
       body: AnimatedBuilder(
         animation: widget.controller,
         builder: (_, __) {
-          // =====================
-          // LOADING AWAL
-          // =====================
+  
           if (widget.controller.isLoading &&
               widget.controller.capsters.isEmpty) {
             return const Center(
@@ -104,9 +99,7 @@ class _CapsterListPageState extends State<CapsterListPage> {
                 widget.controller.capsters.length +
                 (widget.controller.isLoadingMore ? 1 : 0),
             itemBuilder: (context, index) {
-              // =====================
-              // LOADING MORE INDICATOR
-              // =====================
+     
               if (index >= widget.controller.capsters.length) {
                 return const Center(
                   child: CircularProgressIndicator(color: Colors.orange),
@@ -133,9 +126,6 @@ class _CapsterListPageState extends State<CapsterListPage> {
     );
   }
 
-  // =====================
-  // CARD UI (TIDAK DIUBAH)
-  // =====================
   Widget _capsterCard(CapsterEntity c) {
   final imageUrl = buildCapsterImageUrl(c.photoUrl);
 
@@ -147,9 +137,7 @@ class _CapsterListPageState extends State<CapsterListPage> {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        /// =====================
-        /// IMAGE (EXPANDED)
-        /// =====================
+
         Expanded(
           child: Stack(
             children: [
@@ -173,7 +161,7 @@ class _CapsterListPageState extends State<CapsterListPage> {
                     }
 
                     if (snapshot.hasError || snapshot.data == null) {
-                      debugPrint("❌ IMAGE ERROR = ${snapshot.error}");
+                      debugPrint("IMAGE ERROR = ${snapshot.error}");
                       return Image.asset(
                         "assets/banner_grooming.png",
                         width: double.infinity,
@@ -222,9 +210,6 @@ class _CapsterListPageState extends State<CapsterListPage> {
           ),
         ),
 
-        /// =====================
-        /// NAME
-        /// =====================
         SizedBox(
           height: 40,
           child: Padding(

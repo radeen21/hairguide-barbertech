@@ -71,13 +71,13 @@ class _HomePageState extends State<HomePage> {
 
     final session = locator<AuthSessionRepository>();
 
-    debugPrint("🔐 HOME SESSION CHECK");
+    debugPrint("HOME SESSION CHECK");
     debugPrint("   userId = ${session.getUserId()}");
     debugPrint("   role   = ${session.getRole()}");
     debugPrint("   token  = ${session.getSessionToken()}");
     debugPrint(
       "   point  = ${session.getPoint()}",
-    ); // ✅ kalau sudah kamu tambahkan
+    ); 
     debugPrint("   login  = ${session.isLoggedIn()}");
 
     _capsterController = CapsterController(
@@ -86,10 +86,10 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
-    debugPrint("✅ CapsterController CREATED");
+    debugPrint("CapsterController CREATED");
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      debugPrint("🚀 CALL fetchCapsters()");
+      debugPrint(" CALL fetchCapsters()");
       _capsterController.fetchCapsters();
     });
 
@@ -168,9 +168,6 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 14),
                   _productList(),
 
-                  /// ===============================
-                  /// 🔥 REVIEW CAPSTER (NEW)
-                  /// ===============================
                   const SizedBox(height: 32),
 
                   AnimatedBuilder(
@@ -228,41 +225,30 @@ class _HomePageState extends State<HomePage> {
     ]),
     builder: (_, __) {
 
-      /// ⏳ loading history / capster
       if (_historyController.isLoading ||
           _capsterController.isLoading) {
         return const SizedBox();
       }
 
-      /// ❌ tidak ada history
       if (_historyController.histories.isEmpty) {
         return const SizedBox();
       }
 
-      /// ❌ tidak ada capster
       if (_capsterController.capsters.isEmpty) {
         return const SizedBox();
       }
 
-      /// 🔥 ambil history terbaru (limit 1)
       final history = _historyController.histories.first;
 
-      /// 🔥 cari capster dari response capster API
       final capster = _capsterController.capsters.firstWhere(
         (c) => c.id == history.id,
         orElse: () => _capsterController.capsters.first,
       );
 
-      /// ===============================
-      /// ✅ SUDAH ADA RATING → HIDE REVIEW
-      /// ===============================
       if ((capster.rating ?? 0) > 0) {
         return const SizedBox();
       }
 
-      /// ===============================
-      /// ⭐ BELUM ADA RATING → SHOW REVIEW
-      /// ===============================
       return ReviewRatingBox(
         capsterId: capster.id,
         capsterName: capster.name ?? "-",
@@ -282,7 +268,6 @@ class _HomePageState extends State<HomePage> {
       isBold: true,
     );
 
-    // CAPSTER → BISA KLIK
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -318,7 +303,7 @@ class _HomePageState extends State<HomePage> {
         final session = locator<AuthSessionRepository>();
         final role = session.getRole();
 
-        debugPrint("👤 ROLE LOGIN = $role");
+        debugPrint("ROLE LOGIN = $role");
 
         if (role == "user") {
           Navigator.push(
@@ -439,7 +424,7 @@ class _HomePageState extends State<HomePage> {
     return AnimatedBuilder(
       animation: _capsterController,
       builder: (_, __) {
-        debugPrint("📦 CAPSTER LIST BUILD");
+        debugPrint("CAPSTER LIST BUILD");
         debugPrint("   loading = ${_capsterController.isLoading}");
         debugPrint("   total   = ${_capsterController.capsters.length}");
 
@@ -596,7 +581,6 @@ Widget _capsterBox({
 }) {
   final double imageHeight = height * 0.65;
 
-  /// 🔥 SAFE CHECK
   final String imagePath = assetPath.trim();
 
   /// kalau kosong → langsung pakai default asset
@@ -605,7 +589,7 @@ Widget _capsterBox({
   /// cek apakah network image
   final bool isNetworkImage = !isEmptyImage && imagePath.startsWith("http");
 
-  debugPrint("🖼️ IMAGE CHECK:");
+  debugPrint("IMAGE CHECK:");
   debugPrint("   raw = [$assetPath]");
   debugPrint("   trim = [$imagePath]");
   debugPrint("   isNetwork = $isNetworkImage");
@@ -643,7 +627,6 @@ Widget _capsterBox({
                   ),
                 ),
 
-                /// ⭐ RATING BADGE
                 Positioned(
                   right: 8,
                   top: 8,
@@ -700,20 +683,16 @@ Widget _capsterBox({
   );
 }
 
-/// =======================
-/// 🔥 IMAGE BUILDER (SAFE)
-/// =======================
 Widget _buildImage({
   required bool isNetworkImage,
   required bool isEmptyImage,
   required String imagePath,
 }) {
-  /// kalau kosong → langsung default
+
   if (isEmptyImage) {
     return Image.asset("assets/banner_grooming.png", fit: BoxFit.cover);
   }
 
-  /// kalau network image
   if (isNetworkImage) {
     return Image.network(
       imagePath,
@@ -723,13 +702,12 @@ Widget _buildImage({
         return const Center(child: CircularProgressIndicator(strokeWidth: 2));
       },
       errorBuilder: (_, error, __) {
-        debugPrint("❌ IMAGE NETWORK ERROR: $error");
+        debugPrint("IMAGE NETWORK ERROR: $error");
         return Image.asset("assets/banner_grooming.png", fit: BoxFit.cover);
       },
     );
   }
 
-  /// fallback terakhir (kalau BE kirim path aneh)
   return Image.asset("assets/banner_grooming.png", fit: BoxFit.cover);
 }
 
@@ -745,7 +723,7 @@ String buildCapsterPhotoUrl(String? photoPath) {
 
   final url = "${EnvConfig.baseUrl}/photos/$cleanPath";
 
-  debugPrint("🖼️ BUILD PHOTO URL:");
+  debugPrint("BUILD PHOTO URL:");
   debugPrint("   raw   = [$photoPath]");
   debugPrint("   clean = [$cleaned]");
   debugPrint("   final = [$url]");

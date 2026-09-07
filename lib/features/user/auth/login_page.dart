@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    debugPrint("📱 RegisterPage OPENED");
+    debugPrint(" RegisterPage OPENED");
     // forcePortrait();
     _emailController.addListener(
       () => setState(() {
@@ -77,12 +77,12 @@ class _LoginPageState extends State<LoginPage> {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
-    _showLoading(context); // 🔥 TAMPILKAN LOADING
+    _showLoading(context);
 
     try {
       final userEntity = await widget.loginUseCase(email, password);
 
-      _hideLoading(context); // ✅ TUTUP LOADING
+      _hideLoading(context);
 
       final role = userEntity.role;
       final fullName = userEntity.fullName;
@@ -116,11 +116,11 @@ class _LoginPageState extends State<LoginPage> {
         );
       }
     } catch (e) {
-      _hideLoading(context); // ❗ WAJIB ditutup juga saat error
+      _hideLoading(context); 
 
       setState(() {
-        _hasError = true; // 🔥 BARU
-        _errorMessage = "Email atau password salah"; // 🔥 BARU
+        _hasError = true; 
+        _errorMessage = "Email atau password salah"; 
       });
     }
   }
@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
 void dispose() {
   debugPrint("📱 RegisterPage CLOSED");
-  // forceLandscape(); // 🔄 Balik lagi ke mode TV
+  // forceLandscape();
   // forcePortrait();
   super.dispose();
 }
@@ -160,19 +160,19 @@ child: Padding(
                 decoration: InputDecoration(
                   labelText: "Email",
                   labelStyle: TextStyle(
-                    color: _hasError ? Colors.red : Colors.white70, // 🔥 BARU
+                    color: _hasError ? Colors.red : Colors.white70, 
                   ),
 
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: _hasError ? Colors.red : Colors.white24, // 🔥 BARU
+                      color: _hasError ? Colors.red : Colors.white24, 
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
 
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: _hasError ? Colors.red : Colors.white, // 🔥 BARU
+                      color: _hasError ? Colors.red : Colors.white,
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -189,19 +189,19 @@ child: Padding(
                 decoration: InputDecoration(
                   labelText: "Password",
                   labelStyle: TextStyle(
-                    color: _hasError ? Colors.red : Colors.white70, // 🔥 BARU
+                    color: _hasError ? Colors.red : Colors.white70, 
                   ),
 
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: _hasError ? Colors.red : Colors.white24, // 🔥 BARU
+                      color: _hasError ? Colors.red : Colors.white24, 
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
 
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: _hasError ? Colors.red : Colors.white, // 🔥 BARU
+                      color: _hasError ? Colors.red : Colors.white, 
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -235,7 +235,6 @@ child: Padding(
 
               const SizedBox(height: 10),
 
-              // 🔥 BARU: TEXT ERROR
               if (_hasError && _errorMessage != null)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
@@ -263,7 +262,7 @@ child: Padding(
                     elevation: _isFormValid ? 2 : 0,
                   ),
                   onPressed: () {
-                    if (!_isFormValid) return; // 🔒 blok manual
+                    if (!_isFormValid) return;
                     _handleLogin();
                   },
                   child: const Text(
@@ -297,7 +296,7 @@ child: Padding(
                         context,
                         MaterialPageRoute(
                           builder: (_) => RegisterPage(
-                            controller: widget.registerController, // ✅ FIX
+                            controller: widget.registerController,
                           ),
                         ),
                       );
@@ -325,8 +324,8 @@ child: Padding(
 void _showLoading(BuildContext context) {
   showDialog(
     context: context,
-    barrierDismissible: false, // ❌ tidak bisa tap background
-    barrierColor: Colors.black.withOpacity(0.6), // transparan gelap
+    barrierDismissible: false,
+    barrierColor: Colors.black.withOpacity(0.6),
     builder: (_) {
       return const Center(
         child: CircularProgressIndicator(color: Color(0xFFF6AD03)),
@@ -341,16 +340,12 @@ void _hideLoading(BuildContext context) {
 
 
 Future<void> forcePortrait() async {
-  debugPrint("🔄 ORIENTATION → PORTRAIT");
-
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
 }
 
 Future<void> forceLandscape() async {
-  debugPrint("🔄 ORIENTATION → LANDSCAPE");
-
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeRight,
   ]);

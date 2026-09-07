@@ -17,14 +17,14 @@ class CapsterHistoryItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFF141414), // ✅ background baru
-        borderRadius: BorderRadius.circular(18), // ✅ rounded
+        color: const Color(0xFF141414),
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(color: Colors.white12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// 🗓 DATE
+
           Text(
             data.formattedDate,
             style: const TextStyle(color: Colors.white70),
@@ -32,8 +32,6 @@ class CapsterHistoryItem extends StatelessWidget {
 
           const SizedBox(height: 12),
 
-          /// 👤 HEADER ROW
-          /// 👤 HEADER ROW
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -50,16 +48,13 @@ class CapsterHistoryItem extends StatelessWidget {
 
               const SizedBox(width: 12),
 
-              /// LEFT TEXT (TOTAL + NAME)
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    /// TOP ROW: TOTAL + BADGES
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /// TOTAL VISIT
                         Expanded(
                           child: Text(
                             "Total kunjungan : ${data.totalVisits}",
@@ -72,7 +67,6 @@ class CapsterHistoryItem extends StatelessWidget {
 
                         const SizedBox(width: 8),
 
-                        /// BADGES (HORIZONTAL)
                         Row(
                           children: [
                             _badge(
@@ -90,8 +84,6 @@ class CapsterHistoryItem extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 6),
-
-                    /// BOTTOM: CUSTOMER NAME
                     Text(
                       data.memberName,
                       style: const TextStyle(
@@ -108,12 +100,10 @@ class CapsterHistoryItem extends StatelessWidget {
 
           const Divider(height: 28, color: Colors.white12),
 
-          /// 📄 INFO
           _infoRow("Terakhir dilayani", data.formattedLastServed),
           const SizedBox(height: 6),
           _infoRow("Jenis terakhir service", data.lastServiceType),
 
-          /// ➖ GARIS + BUTTON (HANYA JIKA ON GOING)
           if (isOnGoing) ...[
             const SizedBox(height: 14),
             const Divider(color: Colors.white12),
@@ -132,7 +122,6 @@ class CapsterHistoryItem extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  debugPrint("✅ Finish service: ${data.memberName}");
                     Navigator.push(
     context,
     MaterialPageRoute(
@@ -154,10 +143,6 @@ class CapsterHistoryItem extends StatelessWidget {
       ),
     );
   }
-
-  // =====================
-  // SMALL COMPONENTS
-  // =====================
 
   Widget _badge({required String text, required Color color}) {
     return Container(

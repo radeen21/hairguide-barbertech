@@ -17,7 +17,6 @@ class RegisterController extends ChangeNotifier {
   required BuildContext context,
 }) async {
 
-  /// 🔥 VALIDASI DULU SEBELUM LOADING
   if (password.length < 8) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -25,7 +24,7 @@ class RegisterController extends ChangeNotifier {
         backgroundColor: Colors.red,
       ),
     );
-    return; // stop disini
+    return; 
   }
 
   try {

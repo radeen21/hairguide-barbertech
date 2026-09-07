@@ -14,9 +14,6 @@ class CapsterController extends ChangeNotifier {
   String? _nextCursor;
   bool _hasMore = true;
 
-  // =====================
-  // FIRST LOAD
-  // =====================
   Future<void> fetchCapsters() async {
     if (isLoading) return;
 
@@ -36,9 +33,6 @@ class CapsterController extends ChangeNotifier {
     notifyListeners();
   }
 
-  // =====================
-  // LOAD MORE (PAGINATION)
-  // =====================
   Future<void> loadMore() async {
     if (isLoadingMore || !_hasMore) return;
 

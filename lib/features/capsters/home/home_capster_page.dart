@@ -32,7 +32,7 @@ class _HomeCapsterPageState extends State<HomeCapsterPage> {
     super.initState();
     _historyController = locator<CapsterHistoryController>();
     _historyController.fetch();
-    debugPrint("🚀 Fetch capster history...");
+
   }
 
   @override
@@ -48,7 +48,6 @@ class _HomeCapsterPageState extends State<HomeCapsterPage> {
               children: [
                 const SizedBox(height: 10),
 
-                /// ROW LOGO + NOTIF
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -63,7 +62,6 @@ class _HomeCapsterPageState extends State<HomeCapsterPage> {
 
                 const SizedBox(height: 20),
 
-                /// GREETINGS
                 Text(
                   "Halo Capster, ${widget.capsterName}",
                   style: const TextStyle(
@@ -75,7 +73,6 @@ class _HomeCapsterPageState extends State<HomeCapsterPage> {
 
                 const SizedBox(height: 20),
 
-                /// TARGET CONTAINER
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -163,7 +160,6 @@ class _HomeCapsterPageState extends State<HomeCapsterPage> {
 
                 const SizedBox(height: 25),
 
-                /// SERVICE CONTAINER
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -240,9 +236,6 @@ class _HomeCapsterPageState extends State<HomeCapsterPage> {
     );
   }
 
-  // ============================
-  // 🔥 LATEST ACTIVITY
-  // ============================
   Widget _latestActivitySection() {
     return AnimatedBuilder(
       animation: _historyController,
@@ -317,7 +310,6 @@ class _HomeCapsterPageState extends State<HomeCapsterPage> {
 
             const SizedBox(height: 12),
 
-            /// LIST
             ...top3.map((item) {
               return Column(
                 children: [
@@ -354,7 +346,6 @@ class _HomeCapsterPageState extends State<HomeCapsterPage> {
                           ),
                         ),
 
-                        /// RIGHT STATUS
                         _statusBadge(item.serviceStatusLabel),
                       ],
                     ),
@@ -370,9 +361,6 @@ class _HomeCapsterPageState extends State<HomeCapsterPage> {
     );
   }
 
-  // ============================
-  // STATUS BADGE
-  // ============================
   Widget _statusBadge(String? status) {
   final normalized = status?.toUpperCase().trim();
 

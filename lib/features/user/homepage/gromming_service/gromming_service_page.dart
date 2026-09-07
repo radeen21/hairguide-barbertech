@@ -54,16 +54,13 @@ class _ServicesPageState extends State<GrommingServicesPage> {
 
               return GestureDetector(
                 onTap: () {
-                  // =================================================
-                  // ✅ VALIDASI ROLE (TAMBAHAN)
-                  // =================================================
                   final session = locator<AuthSessionRepository>();
                   final role = session.getRole(); // "user" | "capster"
 
-                  debugPrint("🧭 SERVICE TAP | ROLE = $role");
+                  debugPrint("SERVICE TAP | ROLE = $role");
 
                   if (role != "capster") {
-                    debugPrint("⛔ USER TIDAK BOLEH AKSES SERVICE");
+                    debugPrint("USER TIDAK BOLEH AKSES SERVICE");
 
                     // ScaffoldMessenger.of(context).showSnackBar(
                     //   const SnackBar(
@@ -95,7 +92,7 @@ class _ServicesPageState extends State<GrommingServicesPage> {
                               MaterialPageRoute(
                                 builder: (_) => TakeAddOnPicturePage(
                                   service: service,
-                                  addOnPayload: extraData, // ⭐ INI PENTING
+                                  addOnPayload: extraData, 
                                 ),
                               ),
                             );

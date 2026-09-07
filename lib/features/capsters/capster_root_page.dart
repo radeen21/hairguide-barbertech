@@ -49,18 +49,16 @@ class _CapsterRootPageState extends State<CapsterRootPage> {
       body: IndexedStack(
         index: _currentIndex,
         children: [
-          /// 🏠 HOME
+
           HomeCapsterPage(
             capsterName: widget.capsterName,
             takePhotoUseCase: widget.takePhotoUseCase,
           ),
 
-          /// 📒 CUSTOMER RECORD
           CustomerRecordPage(
             controller: _historyController,
           ),
 
-          /// 👤 PROFILE
           AkunCapsterPage(
             capsterName: widget.capsterName, logoutUseCase: widget.logoutUseCase,
           ),

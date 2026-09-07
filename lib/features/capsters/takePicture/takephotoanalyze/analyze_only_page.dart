@@ -58,9 +58,6 @@ class _AnalyzeOnlyPageState extends State<AnalyzeOnlyPage> {
     super.dispose();
   }
 
-  // =====================
-  // 📸 CAPTURE
-  // =====================
   Future<void> _capturePhoto() async {
     if (cameraController == null ||
         !cameraController!.value.isInitialized) return;
@@ -79,9 +76,6 @@ class _AnalyzeOnlyPageState extends State<AnalyzeOnlyPage> {
     }
   }
 
-  // =====================
-  // ☁️ UPLOAD
-  // =====================
   Future<void> _uploadPhoto() async {
     if (_capturedPhoto == null) return;
 
@@ -142,14 +136,11 @@ class _AnalyzeOnlyPageState extends State<AnalyzeOnlyPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      /// =====================
-                      /// 📷 FRAME (FIX SIZE)
-                      /// =====================
                       Container(
-                        width: 353, // ✅ FIX
-                        height: 353, // ✅ FIX
+                        width: 353, 
+                        height: 353,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20), // ✅ FIX
+                          borderRadius: BorderRadius.circular(20), 
                         ),
                         child: Stack(
                           fit: StackFit.expand,
@@ -209,9 +200,6 @@ class _AnalyzeOnlyPageState extends State<AnalyzeOnlyPage> {
           ),
         ),
 
-        // =====================
-        // LOADING OVERLAY
-        // =====================
         if (isCapturing || isUploading)
           Container(
             color: Colors.black.withOpacity(0.6),

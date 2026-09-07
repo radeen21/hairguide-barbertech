@@ -16,12 +16,10 @@ class HairGuideAddOnPage extends StatelessWidget {
   }
 
   String _resolveImageUrl() {
-    // ✅ kalau sudah full url → pakai langsung
     if (imageUrl.startsWith("http")) {
       return imageUrl;
     }
 
-    // ✅ pastikan tidak double slash
     final cleanPath =
         imageUrl.startsWith("/") ? imageUrl.substring(1) : imageUrl;
 
@@ -31,8 +29,6 @@ class HairGuideAddOnPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final resolvedUrl = _resolveImageUrl();
-
-    debugPrint("🖼️ IMAGE URL: $resolvedUrl");
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -60,7 +56,6 @@ class HairGuideAddOnPage extends StatelessWidget {
                 return const CircularProgressIndicator(color: Colors.orange);
               },
               errorBuilder: (_, error, __) {
-                debugPrint("❌ IMAGE ERROR: $error");
                 return const Text(
                   "Gagal memuat gambar",
                   style: TextStyle(color: Colors.white70),

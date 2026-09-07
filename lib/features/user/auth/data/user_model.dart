@@ -33,7 +33,6 @@ class UserModel extends UserEntity {
       sessionExpiresAt: DateTime.parse(data["session_expires_at"]),
       refreshExpiresAt: DateTime.parse(data["refresh_expires_at"]),
 
-      // ✅ FIX UTAMA DI SINI
       point: user["point"] ?? 0,
     );
   }

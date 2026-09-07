@@ -19,9 +19,6 @@ class AuthSessionRepositoryImpl implements AuthSessionRepository {
   bool _activeServiceHasAddons = false;
   int _point = 0;
 
-  // =====================
-  // LOAD SESSION (APP START)
-  // =====================
   Future<void> loadSession() async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -40,15 +37,12 @@ class AuthSessionRepositoryImpl implements AuthSessionRepository {
     _role = prefs.getString(_keyRole);
     _point = prefs.getInt(_keyPoint) ?? 0;
 
-    print("🔄 SESSION LOADED");
+    print(" SESSION LOADED");
     print("   userId = $_userId");
     print("   role   = $_role");
     print("   point  = $_point");
   }
 
-  // =====================
-  // GETTERS
-  // =====================
   @override
   String? getUserId() => _userId;
 
@@ -64,18 +58,12 @@ class AuthSessionRepositoryImpl implements AuthSessionRepository {
   @override
   int getPoint() => _point;
 
-  // =====================
-  // LOGIN STATE
-  // =====================
   @override
   bool isLoggedIn() {
     if (_sessionToken == null || _sessionExpiresAt == null) return false;
     return _sessionExpiresAt!.isAfter(DateTime.now());
   }
 
-  // =====================
-  // SAVE SESSION (LOGIN)
-  // =====================
   @override
   Future<void> saveSession({
     required String userId,
@@ -113,27 +101,17 @@ class AuthSessionRepositoryImpl implements AuthSessionRepository {
     }
 
     await prefs.setInt(_keyPoint, point);
-
-    print("✅ SESSION SAVED");
-    print("🔐 TOKEN = $sessionToken");
-    print("💰 POINT = $point");
   }
 
-  // =====================
-  // UPDATE POINT (AFTER REDEEM)
-  // =====================
   @override
   Future<void> savePoint(int point) async {
     final prefs = await SharedPreferences.getInstance();
     _point = point;
     await prefs.setInt(_keyPoint, point);
 
-    print("💰 POINT UPDATED = $point");
+    print("POINT UPDATED = $point");
   }
 
-  // =====================
-  // CLEAR SESSION (LOGOUT)
-  // =====================
   @override
   Future<void> clearSession() async {
     final prefs = await SharedPreferences.getInstance();
@@ -154,12 +132,9 @@ class AuthSessionRepositoryImpl implements AuthSessionRepository {
     await prefs.remove(_keyRole);
     await prefs.remove(_keyPoint);
 
-    print("🧹 SESSION CLEARED");
+    print("SESSION CLEARED");
   }
 
-  // =====================
-  // ADDONS FLAG
-  // =====================
   @override
   void setActiveServiceHasAddons(bool value) {
     _activeServiceHasAddons = value;

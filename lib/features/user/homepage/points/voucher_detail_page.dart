@@ -29,7 +29,7 @@ class _DetailVoucherPageState extends State<DetailVoucherPage> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Voucher berhasil diredeem 🎉"),
+          content: Text("Voucher berhasil diredeem "),
           backgroundColor: Colors.green,
         ),
       );
@@ -75,9 +75,7 @@ class _DetailVoucherPageState extends State<DetailVoucherPage> {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                // ==========================
-                // IMAGE / LOGO
-                // ==========================
+
                 Container(
                   height: 180,
                   width: double.infinity,
@@ -96,9 +94,7 @@ class _DetailVoucherPageState extends State<DetailVoucherPage> {
 
                 const SizedBox(height: 16),
 
-                // ==========================
-                // TITLE CARD
-                // ==========================
+
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(16),
@@ -131,9 +127,6 @@ class _DetailVoucherPageState extends State<DetailVoucherPage> {
 
                 const SizedBox(height: 16),
 
-                // ==========================
-                // DESCRIPTION
-                // ==========================
                 Expanded(
                   child: Container(
                     width: double.infinity,
@@ -157,9 +150,6 @@ class _DetailVoucherPageState extends State<DetailVoucherPage> {
 
                 const SizedBox(height: 16),
 
-                // ==========================
-                // REDEEM BUTTON
-                // ==========================
                 SizedBox(
                   width: double.infinity,
                   height: 52,
@@ -186,9 +176,6 @@ class _DetailVoucherPageState extends State<DetailVoucherPage> {
           ),
         ),
 
-        // ==========================
-        // LOADING OVERLAY
-        // ==========================
         if (_isRedeeming)
           Container(
             color: Colors.black.withOpacity(0.6),

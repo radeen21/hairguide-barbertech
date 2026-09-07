@@ -6,7 +6,7 @@ class CapsterHistoryEntity {
   final int totalVisits;
   final DateTime? lastServedDate;
   final int transactionAmount;
-  final String status; // 🔥 dari API
+  final String status;
 
   CapsterHistoryEntity({
     required this.id,
@@ -19,11 +19,9 @@ class CapsterHistoryEntity {
     required this.status,
   });
 
-  /// 🔥 LOGIC STATUS (UNTUK UI)
   bool get isProcessing => status == "PROCESSING";
   bool get isDone => status == "COMPLETED";
 
-  /// 🔤 LABEL UNTUK TAMPILAN
   String get serviceStatusLabel {
     if (isProcessing) return "On Going";
     if (isDone) return "Completed";

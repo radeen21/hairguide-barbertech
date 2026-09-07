@@ -50,7 +50,6 @@ class _CapsterLoginPageState extends State<CapsterLoginPage> {
   void initState() {
     super.initState();
 
-    // 🔥 CAPSTER MODE → LANDSCAPE
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeRight,
     ]);
@@ -268,9 +267,6 @@ class _CapsterLoginPageState extends State<CapsterLoginPage> {
   }
 }
 
-/// =====================
-/// LOADING
-/// =====================
 void _showLoading(BuildContext context) {
   showDialog(
     context: context,

@@ -11,7 +11,7 @@ class ReviewRemoteDataSource {
     required int rating,
     required String comment,
   }) async {
-    debugPrint("➡️ POST /reviews");
+    debugPrint("POST /reviews");
     debugPrint("REQUEST BODY:");
     debugPrint({
       "capster_id": capsterId,
@@ -29,12 +29,12 @@ class ReviewRemoteDataSource {
         },
       );
 
-      debugPrint("✅ RESPONSE [${response.statusCode}]");
+      debugPrint("RESPONSE [${response.statusCode}]");
       debugPrint(response.data.toString());
 
       return response.data;
     } on DioException catch (e) {
-      debugPrint("❌ API ERROR");
+      debugPrint("API ERROR");
       debugPrint("STATUS: ${e.response?.statusCode}");
       debugPrint("DATA: ${e.response?.data}");
       rethrow;

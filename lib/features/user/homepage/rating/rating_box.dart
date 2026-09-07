@@ -64,7 +64,6 @@ class _ReviewRatingBoxState extends State<ReviewRatingBox> {
                 ),
               ),
 
-              /// ⭐ CLICKABLE STARS
               Row(
                 children: List.generate(5, (index) {
                   final starIndex = index + 1;
@@ -87,7 +86,6 @@ class _ReviewRatingBoxState extends State<ReviewRatingBox> {
             ],
           ),
 
-          /// ⭐ BUTTON SUBMIT (muncul kalau sudah pilih rating)
           if (selectedRating > 0) ...[
             const SizedBox(height: 16),
             SizedBox(

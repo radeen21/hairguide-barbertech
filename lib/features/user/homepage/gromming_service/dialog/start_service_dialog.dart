@@ -48,7 +48,7 @@ class _StartServiceDialogState extends State<StartServiceDialog> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /// 🏷 TITLE
+             
               const Text(
                 "Masukkan Nomor Telepon",
                 style: TextStyle(
@@ -60,7 +60,6 @@ class _StartServiceDialogState extends State<StartServiceDialog> {
 
               const SizedBox(height: 24),
 
-              /// 📱 INPUT
               TextField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
@@ -83,7 +82,6 @@ class _StartServiceDialogState extends State<StartServiceDialog> {
 
               const Spacer(),
 
-              /// ▶️ BUTTON
               SizedBox(
                 width: double.infinity,
                 height: 52,

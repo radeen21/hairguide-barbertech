@@ -24,7 +24,7 @@ class _RedeemPointPageState extends State<RedeemPointPage> {
   @override
   void initState() {
     super.initState();
-    widget.controller.fetch(); // 🔥 LOAD VOUCHER FROM API
+    widget.controller.fetch();
   }
 
   @override
@@ -49,9 +49,6 @@ class _RedeemPointPageState extends State<RedeemPointPage> {
         children: [
           const SizedBox(height: 16),
 
-          // ======================
-          // POINT CARD
-          // ======================
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: _pointCard(widget.points),
@@ -73,9 +70,6 @@ class _RedeemPointPageState extends State<RedeemPointPage> {
 
           const SizedBox(height: 12),
 
-          // ======================
-          // LIST PROMO FROM API
-          // ======================
           Expanded(
             child: AnimatedBuilder(
               animation: widget.controller,
@@ -142,9 +136,6 @@ class _RedeemPointPageState extends State<RedeemPointPage> {
     );
   }
 
-  // ======================
-  // POINT CARD UI
-  // ======================
   Widget _pointCard(int points) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
@@ -158,7 +149,7 @@ class _RedeemPointPageState extends State<RedeemPointPage> {
         ),
         child: Stack(
           children: [
-            // 🖼️ BACKGROUND IMAGE - LEFT
+
             Positioned(
               left: 0,
               top: 0,
@@ -169,7 +160,6 @@ class _RedeemPointPageState extends State<RedeemPointPage> {
               ),
             ),
 
-            // 🎯 CONTENT
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -219,9 +209,6 @@ class _RedeemPointPageState extends State<RedeemPointPage> {
     );
   }
 
-  // ======================
-  // PROMO ITEM UI
-  // ======================
   Widget _promoItem({
     required String title,
     required int point,

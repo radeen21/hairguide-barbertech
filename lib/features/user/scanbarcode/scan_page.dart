@@ -19,7 +19,7 @@ class _ScanPageState extends State<ScanPage> {
   @override
   void initState() {
     super.initState();
-    _scannerController.start(); // ✅ PENTING: START CAMERA
+    _scannerController.start();
   }
 
   Future<void> _onDetect(BarcodeCapture capture) async {
@@ -32,13 +32,11 @@ class _ScanPageState extends State<ScanPage> {
 
     setState(() => _isProcessing = true);
 
-    /// stop kamera biar tidak scan berkali-kali
     _scannerController.stop();
 
-    debugPrint("📦 QR RESULT: $value");
+    debugPrint("QR RESULT: $value");
 
     try {
-      /// 🔥 HIT API
       await widget.controller.scan(value);
 
       if (!mounted) return;
@@ -47,7 +45,7 @@ class _ScanPageState extends State<ScanPage> {
         context: context,
         barrierDismissible: false,
         builder: (_) => AlertDialog(
-          title: const Text("Scan Berhasil ✅"),
+          title: const Text("Scan Berhasil"),
           content: Text(
             "Session berhasil dibuat\n\n"
             "Status: ${widget.controller.session?.status ?? "-"}",
@@ -55,17 +53,15 @@ class _ScanPageState extends State<ScanPage> {
           actions: [
             TextButton(
               onPressed: () {
-                /// 1️⃣ Close dialog dulu
                 // Navigator.of(context, rootNavigator: true).pop();
 
-                /// 2️⃣ Close halaman scan
                 Navigator.pop(context);
 
                 setState(() {
-                  _isProcessing = false; // ✅ STOP LOADING
+                  _isProcessing = false; 
                 });
 
-                _scannerController.start(); // ✅ OPTIONAL: resume scan
+                _scannerController.start();
               },
               child: const Text("OK"),
             ),
@@ -73,13 +69,13 @@ class _ScanPageState extends State<ScanPage> {
         ),
       );
     } catch (e) {
-      debugPrint("❌ SCAN ERROR: $e");
+      debugPrint("SCAN ERROR: $e");
 
       if (!mounted) return;
 
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text("❌ Gagal scan QR")));
+      ).showSnackBar(const SnackBar(content: Text("Gagal scan QR")));
 
       /// restart scanner kalau gagal
       // _scannerController.start();
@@ -102,9 +98,7 @@ class _ScanPageState extends State<ScanPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // =====================
-            // TITLE
-            // =====================
+
             const Padding(
               padding: EdgeInsets.all(16),
               child: Text(
@@ -119,9 +113,6 @@ class _ScanPageState extends State<ScanPage> {
 
             const SizedBox(height: 24),
 
-            // =====================
-            // CAMERA + FRAME
-            // =====================
             Expanded(
               child: Center(
                 child: SizedBox(
@@ -130,7 +121,7 @@ class _ScanPageState extends State<ScanPage> {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      /// 📷 CAMERA
+
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: MobileScanner(
@@ -139,7 +130,6 @@ class _ScanPageState extends State<ScanPage> {
                         ),
                       ),
 
-                      /// 🌫 OVERLAY GELAP
                       Container(
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.25),
@@ -147,7 +137,6 @@ class _ScanPageState extends State<ScanPage> {
                         ),
                       ),
 
-                      /// 🟨 BORDER
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
@@ -158,7 +147,6 @@ class _ScanPageState extends State<ScanPage> {
                         ),
                       ),
 
-                      /// ⏳ LOADING SAAT SCAN
                       if (_isProcessing)
                         Container(
                           decoration: BoxDecoration(

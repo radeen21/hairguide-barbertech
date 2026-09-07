@@ -12,31 +12,25 @@ class SubmitReviewUseCase {
     required int rating,
     required String comment,
   }) async {
-    debugPrint("🧠 SubmitReviewUseCase.execute()");
+    debugPrint("SubmitReviewUseCase.execute()");
 
-    /// =====================
-    /// VALIDATION
-    /// =====================
     if (capsterId.isEmpty) {
-      debugPrint("❌ capsterId kosong");
+      debugPrint("capsterId kosong");
       throw Exception("Capster ID tidak valid");
     }
 
     if (rating < 1 || rating > 5) {
-      debugPrint("❌ rating tidak valid: $rating");
+      debugPrint("rating tidak valid: $rating");
       throw Exception("Rating harus antara 1 - 5");
     }
 
     if (comment.trim().isEmpty) {
-      debugPrint("❌ comment kosong");
+      debugPrint("comment kosong");
       throw Exception("Comment wajib diisi");
     }
 
-    /// =====================
-    /// CALL REPOSITORY
-    /// =====================
     try {
-      debugPrint("📡 CALL submitReview()");
+      debugPrint(" CALL submitReview()");
       debugPrint({
         "capster_id": capsterId,
         "rating": rating,
@@ -49,12 +43,12 @@ class SubmitReviewUseCase {
         comment: comment,
       );
 
-      debugPrint("✅ REVIEW SUCCESS");
+      debugPrint("REVIEW SUCCESS");
       debugPrint(result.toString());
 
       return true;
     } catch (e, stack) {
-      debugPrint("❌ REVIEW FAILED");
+      debugPrint("REVIEW FAILED");
       debugPrint(e.toString());
       debugPrint(stack.toString());
       rethrow;

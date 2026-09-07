@@ -25,8 +25,8 @@ class _CustomerRecordPageState extends State<CustomerRecordPage> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         elevation: 0,
-        automaticallyImplyLeading: false, // ✅ hilangkan back button
-        titleSpacing: 16, // ✅ kasih padding kiri biar rapi
+        automaticallyImplyLeading: false,
+        titleSpacing: 16, 
         title: const Text(
           "CUSTOMER RECORD",
           style: TextStyle(

@@ -10,7 +10,7 @@ class ReviewRepositoryImpl implements ReviewRepository {
   Future<Map<String, dynamic>> submitReview({
     required String capsterId,
     required int rating,
-    required String comment, // ✅ FIX: NON NULL
+    required String comment,
   }) {
     return remoteDataSource.submitReview(
       capsterId: capsterId,

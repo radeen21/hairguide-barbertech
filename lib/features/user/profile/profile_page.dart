@@ -146,7 +146,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
 
-        /// 🔥 LOADING OVERLAY (BLOCK INTERACTION)
         if (_isLoggingOut)
           Container(
             color: Colors.black.withOpacity(0.6),
@@ -224,7 +223,6 @@ Widget _pointsCard() {
             ),
           ),
 
-          // 🎯 CONTENT
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
             child: Row(

@@ -29,14 +29,11 @@ class StartServiceRemoteDataSourceImpl
       "add_ons": addOns,
     };
 
-    print("🚀 START SERVICE BODY = $body");
-
     final response = await dio.post(
       "/histories/start",
       data: body,
     );
 
-    print("✅ START SERVICE RESPONSE = ${response.data}");
     return response.data;
   }
 }

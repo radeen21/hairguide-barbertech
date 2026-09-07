@@ -19,22 +19,14 @@ class ServiceBridgingPage extends StatefulWidget {
 class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
   bool isLoading = true;
 
-  // ==========================
-  // COLORING
-  // ==========================
   List<dynamic> colorings = [];
   String? selectedColoringType;
   Color selectedColor = Colors.grey;
 
-  // ==========================
-  // PERMING
-  // ==========================
+  
   List<dynamic> permings = [];
   String? selectedPermingLevel;
 
-  // ==========================
-  // SMOOTHING
-  // ==========================
   List<dynamic> smoothings = [];
   String? selectedSmoothingName;
 
@@ -44,25 +36,22 @@ class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
     _fetchAddOns();
   }
 
-  // ==========================
-  // 🔥 GET ADD-ONS + LOG
-  // ==========================
   Future<void> _fetchAddOns() async {
     try {
       final dio = DioClient.create();
 
-      debugPrint("📡 GET /add-ons/${widget.service.id}");
+      debugPrint("GET /add-ons/${widget.service.id}");
 
       final response = await dio.get("/add-ons/${widget.service.id}");
 
-      debugPrint("✅ STATUS: ${response.statusCode}");
-      debugPrint("📦 FULL RESPONSE: ${response.data}");
+      debugPrint("STATUS: ${response.statusCode}");
+      debugPrint("FULL RESPONSE: ${response.data}");
 
       final data = response.data["data"] ?? {};
 
-      debugPrint("🎨 COLORINGS: ${data["colorings"]}");
-      debugPrint("💈 PERMINGS: ${data["permings"]}");
-      debugPrint("💆 SMOOTHINGS: ${data["smoothings"]}");
+      debugPrint("COLORINGS: ${data["colorings"]}");
+      debugPrint("PERMINGS: ${data["permings"]}");
+      debugPrint("SMOOTHINGS: ${data["smoothings"]}");
 
       setState(() {
         colorings = data["colorings"] ?? [];
@@ -71,15 +60,12 @@ class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
         isLoading = false;
       });
     } catch (e, s) {
-      debugPrint("❌ ERROR FETCH ADD-ONS: $e");
-      debugPrint("📛 STACKTRACE: $s");
+      debugPrint("ERROR FETCH ADD-ONS: $e");
+      debugPrint("STACKTRACE: $s");
       setState(() => isLoading = false);
     }
   }
 
-  // ==========================
-  // UI
-  // ==========================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,9 +89,7 @@ class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ==========================
-                  // 💈 PERMING
-                  // ==========================
+           
                   if (permings.isNotEmpty) ...[
                     _sectionTitle("Pilih Level Perming"),
                     _choiceWrap(
@@ -118,9 +102,7 @@ class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
                     const SizedBox(height: 24),
                   ],
 
-                  // ==========================
-                  // 💆 SMOOTHING
-                  // ==========================
+               
                   if (smoothings.isNotEmpty) ...[
                     _sectionTitle("Pilih Type Smoothing"),
                     _choiceWrap(
@@ -133,9 +115,7 @@ class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
                     const SizedBox(height: 24),
                   ],
 
-                  // ==========================
-                  // 🎨 COLORING
-                  // ==========================
+                 
                   if (colorings.isNotEmpty) ...[
                     _sectionTitle("Pilih Type Coloring"),
                     _choiceWrap(
@@ -170,9 +150,7 @@ class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
 
                   const Spacer(),
 
-                  // ==========================
-                  // ▶️ CONTINUE (MERGE PAYLOAD)
-                  // ==========================
+              
                   SizedBox(
                     width: double.infinity,
                     height: 52,
@@ -181,9 +159,9 @@ class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
                         backgroundColor:
                             MaterialStateProperty.resolveWith<Color?>((states) {
                               if (states.contains(MaterialState.disabled)) {
-                                return Colors.grey[700]; // ⚪ disabled
+                                return Colors.grey[700]; 
                               }
-                              return const Color(0xFFF6AD03); // 🟡 enabled
+                              return const Color(0xFFF6AD03); 
                             }),
                         foregroundColor: MaterialStateProperty.all(
                           Colors.black,
@@ -227,12 +205,10 @@ class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
     );
   }
 
-  // ==========================
-  // UI HELPERS
-  // ==========================
+  
   Widget _sectionTitle(String text) {
     return SizedBox(
-      height: 40, // 👈 atur tinggi sesuai kebutuhan
+      height: 40, 
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
@@ -254,7 +230,7 @@ class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
     required Function(String) onSelected,
   }) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10), // ✅ jarak dari title
+      padding: const EdgeInsets.only(top: 10), 
       child: Column(
         children: items.map((item) {
           final label = getLabel(item);
@@ -268,7 +244,7 @@ class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
               margin: const EdgeInsets.only(bottom: 12),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               decoration: BoxDecoration(
-                color: const Color(0xFF141414), // ✅ background baru
+                color: const Color(0xFF141414), 
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
                   color: isSelected ? const Color(0xFFF6AD03) : Colors.white12,
@@ -332,17 +308,15 @@ class _ServiceBridgingPageState extends State<ServiceBridgingPage> {
   }
 
   bool get _isContinueEnabled {
-    // Kalau ada PERMING tapi belum pilih
+
     if (permings.isNotEmpty && selectedPermingLevel == null) {
       return false;
     }
 
-    // Kalau ada SMOOTHING tapi belum pilih
     if (smoothings.isNotEmpty && selectedSmoothingName == null) {
       return false;
     }
 
-    // Kalau ada COLORING → wajib pilih type + warna
     if (colorings.isNotEmpty) {
       if (selectedColoringType == null) return false;
       if (selectedColor == Colors.grey) return false;

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class CameraFramePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    const double cornerLength = 30; // panjang garis pojok
-    const double sideLength = 20; // panjang garis tengah sisi
+    const double cornerLength = 30; 
+    const double sideLength = 20;
     const double strokeWidth = 3;
 
     final Paint yellowPaint = Paint()

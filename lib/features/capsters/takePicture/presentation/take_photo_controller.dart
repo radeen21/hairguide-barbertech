@@ -29,8 +29,6 @@ class TakePhotoController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      debugPrint("👤 ROLE: $role");
-      debugPrint("🧾 SERVICE ID: $serviceId");
 
       final result = await useCase.execute(
         File(path),

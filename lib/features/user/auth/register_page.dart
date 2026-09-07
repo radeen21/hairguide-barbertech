@@ -27,9 +27,6 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _isFormValid = false;
   bool _hasSubmitted = false;
 
-  // =====================
-  // INIT
-  // =====================
   @override
   void initState() {
     super.initState();
@@ -44,9 +41,6 @@ class _RegisterPageState extends State<RegisterPage> {
     _validateForm();
   }
 
-  // =====================
-  // VALIDATE FORM
-  // =====================
   void _validateForm() {
     final valid =
         _nameController.text.trim().isNotEmpty &&
@@ -58,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
             _confirmPasswordController.text;
 
     if (_isFormValid != valid) {
-      debugPrint("📝 FORM VALID = $valid");
+      debugPrint(" FORM VALID = $valid");
       setState(() => _isFormValid = valid);
     }
   }
@@ -74,9 +68,6 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  // =====================
-  // DATE PICKER
-  // =====================
   Future<void> _pickDate() async {
     final date = await showDatePicker(
       context: context,
@@ -93,14 +84,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   String _two(int v) => v.toString().padLeft(2, "0");
 
-  // =====================
-  // REGISTER
-  // =====================
+  
   Future<void> _handleRegister() async {
     setState(() => _hasSubmitted = true);
 
     if (!_isFormValid) {
-      debugPrint("❌ FORM INVALID");
+      debugPrint("FORM INVALID");
       return;
     }
 
@@ -133,9 +122,6 @@ class _RegisterPageState extends State<RegisterPage> {
     return phone;
   }
 
-  // =====================
-  // FIELD VALIDATION
-  // =====================
   bool _isFieldInvalid(TextEditingController c) {
     if (!_hasSubmitted) return false;
     return c.text.trim().isEmpty;
@@ -147,9 +133,6 @@ class _RegisterPageState extends State<RegisterPage> {
         _confirmPasswordController.text;
   }
 
-  // =====================
-  // UI
-  // =====================
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -228,7 +211,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 30),
 
-                  /// 🔘 BUTTON
+                  /// BUTTON
                   SizedBox(
                     width: double.infinity,
                     height: 54,

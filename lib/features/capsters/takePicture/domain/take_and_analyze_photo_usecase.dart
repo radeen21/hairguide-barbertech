@@ -21,7 +21,6 @@ class TakeAndAnalyzePhotoUseCase {
 
     final photoId = uploadResponse["data"]["id"] as String;
 
-    // ADD-ON FLOW
     if (serviceType != null && serviceType != "haircut") {
       final generateAddOnResponse =
           await repository.generateImageAddOn(
@@ -36,7 +35,6 @@ class TakeAndAnalyzePhotoUseCase {
       };
     }
 
-    // ANALYZE FLOW
     final analyzeResponse = await repository.analyzePhoto(
       photoId: photoId,
       serviceId: serviceId,

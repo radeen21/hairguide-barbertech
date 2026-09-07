@@ -112,9 +112,6 @@ class AnalyzeResultPage extends StatelessWidget {
     );
   }
 
-  // =====================
-  // BULLET ITEM
-  // =====================
   Widget _bullet(String title, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),

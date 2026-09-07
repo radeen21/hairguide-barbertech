@@ -14,7 +14,6 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserEntity> login(String email, String password) async {
     final response = await remote.login(email, password);
 
-    // ✅ KIRIM SELURUH RESPONSE KE MODEL
     return UserModel.fromLoginResponse(response);
   }
 

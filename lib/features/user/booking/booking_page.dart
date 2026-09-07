@@ -26,8 +26,6 @@ class BookingPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
-
-              /// 🖼️ ILLUSTRATION
               Opacity(
                 opacity: 0.9,
                 child: Image.asset("assets/logo_barbertech.png", height: 180),
@@ -35,7 +33,6 @@ class BookingPage extends StatelessWidget {
 
               const SizedBox(height: 30),
 
-              /// 📝 TITLE
               const Text(
                 "Mau Booking Sekarang?",
                 textAlign: TextAlign.center,
@@ -48,7 +45,6 @@ class BookingPage extends StatelessWidget {
 
               const SizedBox(height: 12),
 
-              /// 📄 DESCRIPTION
               const Text(
                 "Silakan hubungi kami atau klik tombol booking untuk melanjutkan.",
                 textAlign: TextAlign.center,
@@ -57,7 +53,6 @@ class BookingPage extends StatelessWidget {
 
               const SizedBox(height: 32),
 
-              /// 📞 CONTACT INFO
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -98,14 +93,13 @@ class BookingPage extends StatelessWidget {
 
               const SizedBox(height: 40),
 
-              /// ✅ BUTTON
               SizedBox(
                 width: double.infinity,
                 height: 54,
                 child: ElevatedButton.icon(
                   onPressed: () {
                     // TODO: booking action
-                    debugPrint("📞 BOOKING CLICKED");
+                    debugPrint("BOOKING CLICKED");
                     _callBooking();
                   },
                   icon: const Icon(Icons.phone_outlined),
@@ -143,7 +137,7 @@ class BookingPage extends StatelessWidget {
   if (await canLaunchUrl(phoneUri)) {
     await launchUrl(phoneUri);
   } else {
-    debugPrint("❌ Tidak bisa membuka dialer");
+    debugPrint("Tidak bisa membuka dialer");
   }
 }
 

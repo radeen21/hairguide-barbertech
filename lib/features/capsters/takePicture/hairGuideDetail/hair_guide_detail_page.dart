@@ -58,10 +58,6 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
     _hasAddons = widget.hasAddons;
     _serviceId = widget.serviceId;
 
-    debugPrint("🟢 INIT HairGuideDetailPage");
-    debugPrint("🟢 serviceId   : $_serviceId");
-    debugPrint("🟢 hasAddons   : $_hasAddons");
-
     final remote = PhotoRemoteDataSource(DioClient.create());
     photoRepository = PhotoRepositoryImpl(remote);
 
@@ -78,9 +74,6 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
     });
   }
 
-  // =====================
-  // LOAD FOTO USER
-  // =====================
   Future<void> _loadUserPhoto() async {
     try {
       final bytes = await photoRepository.getPhotoById(widget.userImage);
@@ -93,20 +86,17 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
     }
   }
 
-  // =====================
-  // LOAD REKOMENDASI
-  // =====================
   Future<void> _loadGeneratedPhotos({bool isFromPullRefresh = false}) async {
     final requestId = widget.generatedData["request_id"];
     final status = widget.generatedData["status"];
 
     if (requestId == null) {
-      _showToast("❌ request_id tidak ditemukan");
+      _showToast("request_id tidak ditemukan");
       return;
     }
 
-    debugPrint("📡 GET /photos/${widget.userId}/$requestId");
-    debugPrint("📌 status: $status");
+    debugPrint("GET /photos/${widget.userId}/$requestId");
+    debugPrint("status: $status");
 
     try {
       setState(() => _isRecommendationLoading = true);
@@ -114,13 +104,13 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
       final dio = DioClient.create();
       final response = await dio.get("/photos/${widget.userId}/$requestId");
 
-      debugPrint("✅ RESPONSE: ${response.data}");
+      debugPrint("RESPONSE: ${response.data}");
 
       final List list = response.data["data"] ?? [];
 
       if (list.isEmpty) {
         if (isFromPullRefresh) {
-          _showToast("⏳ AI masih memproses gambar...");
+          _showToast("AI masih memproses gambar...");
         }
         setState(() {
           generatedPhotos = [];
@@ -129,7 +119,7 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
         return;
       }
 
-      _showToast("✅ Rekomendasi rambut siap!");
+      _showToast("Rekomendasi rambut siap!");
 
       setState(() {
         generatedPhotos = list;
@@ -137,8 +127,8 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
         _isRecommendationLoading = false;
       });
     } catch (e) {
-      debugPrint("❌ ERROR LOAD GENERATED PHOTO: $e");
-      _showToast("❌ Gagal memuat rekomendasi");
+      debugPrint("ERROR LOAD GENERATED PHOTO: $e");
+      _showToast("Gagal memuat rekomendasi");
       setState(() => _isRecommendationLoading = false);
     }
   }
@@ -154,9 +144,6 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
     );
   }
 
-  // =====================
-  // UI
-  // =====================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,12 +151,12 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
       appBar: AppBar(
         backgroundColor: Colors.black,
         iconTheme: const IconThemeData(
-          color: Colors.white, // 🔙 icon back putih
+          color: Colors.white, 
         ),
         title: const Text(
           "Hair Guide",
           style: TextStyle(
-            color: Colors.white, // 📝 text putih
+            color: Colors.white, 
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -215,9 +202,6 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
     );
   }
 
-  // =====================
-  // TAB ANALISA
-  // =====================
   Widget _buildAnalysisTab() {
     final data = widget.analyzeData;
     final hairAnalysis = data["hair_analysis_result"] ?? {};
@@ -268,9 +252,6 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
     );
   }
 
-  // =====================
-  // TAB REKOMENDASI (FINAL)
-  // =====================
   Widget _buildRecommendationTab() {
     return RefreshIndicator(
       color: const Color(0xFFF6AD03),
@@ -356,7 +337,7 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
                                   labelColor: const Color(0xFFF6AD03),
                                   onTap: () {
                                     final generatedPhotoId =
-                                        photo["id"]; // ✅ PENTING
+                                        photo["id"]; 
                                     final baseImage = snap.data!;
 
                                     setState(() {
@@ -433,9 +414,6 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
     );
   }
 
-  // =====================
-  // UI HELPERS
-  // =====================
   Widget _imageBox({
     required Uint8List? bytes,
     required String label,
@@ -564,7 +542,6 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
 
                       const SizedBox(height: 10),
 
-                      // 🔽 MULAI CUKUR
                       SizedBox(
                         width: double.infinity,
                         height: 52,
@@ -577,12 +554,12 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
                             ),
                           ),
                           onPressed: () {
-                            debugPrint("🟠 OPEN START HAIRCUT DIALOG");
-                            debugPrint("🟠 serviceId    : $_serviceId");
+                            debugPrint("OPEN START HAIRCUT DIALOG");
+                            debugPrint("serviceId    : $_serviceId");
                             debugPrint(
-                              "🟠 haircutName : $_selectedHaircutName",
+                              "haircutName : $_selectedHaircutName",
                             );
-                            debugPrint("🟠 addOns      : $_selectedAddOns");
+                            debugPrint("addOns      : $_selectedAddOns");
 
                             if (_selectedHaircutName == null) {
                               _showToast("Pilih model rambut terlebih dahulu");
@@ -633,46 +610,19 @@ class _HairGuideDetailPageState extends State<HairGuideDetailPage>
     child: const Icon(Icons.image, color: Colors.white24),
   );
 
-  // Widget _accordion({required String title, required Widget content}) {
-  //   return Container(
-  //     margin: const EdgeInsets.only(bottom: 12),
-  //     decoration: BoxDecoration(
-  //       color: Colors.white12,
-  //       borderRadius: BorderRadius.circular(8),
-  //     ),
-  //     child: ExpansionTile(
-  //       title: Text(
-  //         title,
-  //         style: const TextStyle(color: Colors.white, fontSize: 16),
-  //       ),
-  //       childrenPadding: const EdgeInsets.all(12),
-  //       children: [
-  //         Container(
-  //           padding: const EdgeInsets.all(12),
-  //           decoration: BoxDecoration(
-  //             color: Colors.white10,
-  //             borderRadius: BorderRadius.circular(8),
-  //           ),
-  //           child: content,
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Widget _accordion({required String title, required Widget content}) {
     return _LeftAlignedAccordion(title: title, child: content);
   }
 
   Widget _bullet(String title, String value) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 12), // ✅ spacing sama
+      padding: const EdgeInsets.only(bottom: 12), 
       child: RichText(
         text: TextSpan(
           style: const TextStyle(color: Colors.white70, height: 1.5),
           children: [
             TextSpan(
-              text: "• $title:\n",
+              text: " $title:\n",
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -704,7 +654,7 @@ class _LeftAlignedAccordionState extends State<_LeftAlignedAccordion> {
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
-        color: Colors.white10, // ✅ sama dengan AnalyzeResultPage
+        color: Colors.white10,
         borderRadius: BorderRadius.circular(14),
       ),
       child: Column(
@@ -739,7 +689,7 @@ class _LeftAlignedAccordionState extends State<_LeftAlignedAccordion> {
 
           AnimatedSize(
             duration: const Duration(milliseconds: 200),
-            curve: Curves.easeInOut, // ✅ sama
+            curve: Curves.easeInOut, 
             child: _expanded
                 ? Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),

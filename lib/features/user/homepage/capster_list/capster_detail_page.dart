@@ -36,7 +36,7 @@ class _CapsterDetailPageState extends State<CapsterDetailPage> {
 
     final dio = DioClient.create();
 
-    debugPrint("🖼️ LOAD DETAIL IMAGE = $url");
+    debugPrint("LOAD DETAIL IMAGE = $url");
 
     final res = await dio.get(
       url,
@@ -75,7 +75,7 @@ class _CapsterDetailPageState extends State<CapsterDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// 🖼️ IMAGE
+          
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: FutureBuilder<Uint8List>(
@@ -92,7 +92,7 @@ class _CapsterDetailPageState extends State<CapsterDetailPage> {
                   }
 
                   if (snapshot.hasError || snapshot.data == null) {
-                    debugPrint("❌ DETAIL IMAGE ERROR = ${snapshot.error}");
+                    debugPrint("DETAIL IMAGE ERROR = ${snapshot.error}");
                     return Image.asset(
                       "assets/banner_grooming.png",
                       height: 200,
@@ -113,7 +113,6 @@ class _CapsterDetailPageState extends State<CapsterDetailPage> {
 
             const SizedBox(height: 16),
 
-            /// 👤 NAME
             Text(
               widget.capster.name,
               style: const TextStyle(
@@ -125,7 +124,6 @@ class _CapsterDetailPageState extends State<CapsterDetailPage> {
 
             const SizedBox(height: 6),
 
-            /// ⭐ RATING
             Row(
               children: [
                 const Icon(Icons.star, color: Colors.orange, size: 18),

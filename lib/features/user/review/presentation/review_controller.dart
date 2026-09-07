@@ -18,7 +18,7 @@ class ReviewController extends ChangeNotifier {
     error = null;
     notifyListeners();
 
-    debugPrint("🧠 SUBMIT REVIEW CONTROLLER");
+    debugPrint("SUBMIT REVIEW CONTROLLER");
     debugPrint("capsterId: $capsterId");
     debugPrint("rating   : $rating");
     debugPrint("comment  : $comment");

@@ -66,8 +66,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       return {
         "os": "Android",
-        "model": android.model, // contoh: Pixel 7
-        "version": android.version.release, // contoh: 14
+        "model": android.model, 
+        "version": android.version.release, 
       };
     }
 
@@ -88,7 +88,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     try {
       return await FirebaseMessaging.instance.getToken();
     } catch (e) {
-      print("❌ Failed get FCM token: $e");
+      print("Failed get FCM token: $e");
       return null;
     }
   }

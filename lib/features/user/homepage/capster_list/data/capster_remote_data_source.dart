@@ -12,7 +12,7 @@ class CapsterRemoteDataSource {
       queryParameters: cursor != null ? {"kursor": cursor} : null,
     );
 
-    debugPrint("📥 CAPSTERS RESPONSE = ${response.data}");
+    debugPrint("CAPSTERS RESPONSE = ${response.data}");
 
     return response.data as Map<String, dynamic>;
   }

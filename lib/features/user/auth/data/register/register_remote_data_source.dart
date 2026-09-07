@@ -26,18 +26,18 @@ class RegisterRemoteDataSource {
 
     try {
       debugPrint("");
-      debugPrint("🚀 ========== REGISTER REQUEST ==========");
-      debugPrint("➡️ ENDPOINT : $endpoint");
-      debugPrint("➡️ PAYLOAD  : $payload");
-      debugPrint("➡️ HEADERS  : ${dioWithoutAuth.options.headers}");
-      debugPrint("🚀 ====================================");
+      debugPrint("========== REGISTER REQUEST ==========");
+      debugPrint("ENDPOINT : $endpoint");
+      debugPrint("PAYLOAD  : $payload");
+      debugPrint(" HEADERS  : ${dioWithoutAuth.options.headers}");
+      debugPrint(" ====================================");
       debugPrint("");
 
       final response = await dioWithoutAuth.post(endpoint, data: payload);
 
-      debugPrint("✅ REGISTER SUCCESS RESPONSE:");
-      debugPrint("✅ STATUS : ${response.statusCode}");
-      debugPrint("✅ DATA   : ${response.data}");
+      debugPrint("REGISTER SUCCESS RESPONSE:");
+      debugPrint("STATUS : ${response.statusCode}");
+      debugPrint("DATA   : ${response.data}");
 
       if (response.data is Map<String, dynamic>) {
         return response.data;
@@ -48,12 +48,12 @@ class RegisterRemoteDataSource {
         "data": response.data,
       };
     } on DioException catch (e) {
-      debugPrint("❌ REGISTER ERROR");
-      debugPrint("❌ TYPE   : ${e.type}");
-      debugPrint("❌ MSG    : ${e.message}");
-      debugPrint("❌ STATUS : ${e.response?.statusCode}");
-      debugPrint("❌ DATA   : ${e.response?.data}");
-      debugPrint("❌ HEADER : ${e.response?.headers}");
+      debugPrint("REGISTER ERROR");
+      debugPrint("TYPE   : ${e.type}");
+      debugPrint("MSG    : ${e.message}");
+      debugPrint("STATUS : ${e.response?.statusCode}");
+      debugPrint("DATA   : ${e.response?.data}");
+      debugPrint("HEADER : ${e.response?.headers}");
 
       String errorMessage = "Register gagal";
 
@@ -74,7 +74,7 @@ class RegisterRemoteDataSource {
 
       throw Exception(errorMessage);
     } catch (e) {
-      debugPrint("❌ UNKNOWN REGISTER ERROR: $e");
+      debugPrint("UNKNOWN REGISTER ERROR: $e");
       throw Exception("Terjadi kesalahan saat register");
     }
   }

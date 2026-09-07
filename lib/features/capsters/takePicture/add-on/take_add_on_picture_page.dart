@@ -54,7 +54,6 @@ class _TakeAddOnPicturePageState extends State<TakeAddOnPicturePage> {
     super.dispose();
   }
 
-  // 📸 Ambil foto
   Future<void> _capturePhoto() async {
     if (_cameraController == null ||
         !_cameraController!.value.isInitialized) return;
@@ -63,7 +62,6 @@ class _TakeAddOnPicturePageState extends State<TakeAddOnPicturePage> {
     setState(() => _capturedPhoto = File(picture.path));
   }
 
-  // ☁️ Upload + Generate Add-On
   Future<void> _submitAddOn() async {
     if (_capturedPhoto == null) return;
 
@@ -72,9 +70,6 @@ class _TakeAddOnPicturePageState extends State<TakeAddOnPicturePage> {
     try {
       final dio = DioClient.create();
 
-      // ==========================
-      // 1️⃣ UPLOAD PHOTO
-      // ==========================
       final formData = FormData.fromMap({
         "photo": await MultipartFile.fromFile(_capturedPhoto!.path),
       });
@@ -82,9 +77,6 @@ class _TakeAddOnPicturePageState extends State<TakeAddOnPicturePage> {
       final uploadRes = await dio.post("/photos", data: formData);
       final photoId = uploadRes.data["data"]["id"];
 
-      // ==========================
-      // 2️⃣ GENERATE ADD-ON
-      // ==========================
       final generateRes = await dio.post(
         "/generate-image/add-on",
         data: {
@@ -98,10 +90,7 @@ class _TakeAddOnPicturePageState extends State<TakeAddOnPicturePage> {
         throw Exception("URL hasil add-on tidak ditemukan");
       }
 
-      // 🔥 FIX UTAMA
       final imageUrl = "${dio.options.baseUrl}/photos$rawUrl";
-
-      debugPrint("🖼 ADD-ON IMAGE URL: $imageUrl");
 
       if (!mounted) return;
 
@@ -114,7 +103,6 @@ class _TakeAddOnPicturePageState extends State<TakeAddOnPicturePage> {
         ),
       );
     } catch (e) {
-      debugPrint("❌ ERROR ADD-ON: $e");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Gagal: $e")),
       );
